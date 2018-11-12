@@ -13,6 +13,7 @@
 
     <title>YunYonPH - Banking Solutions</title>
     <body style="font-family: 'Titillium Web', sans-serif;">
+        <main class="container" id="loginVue" role="main">
         <!-- Header -->
         <div style="padding-top: 1%; padding-left: 2%">
             <span><font color="white" style="font-size: 40px">YunYon</font><font color="red">PH</font></span>
@@ -28,21 +29,22 @@
             <div class="input-group-prepend bg-dark">
               <span class="input-group-text bg-dark" id="basic-addon1"><i class="fas fa-address-card" style="color: #428bca"></i></span>
             </div>
-            <input type="text" class="form-control bg-dark" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1" style="color: white">
+            <input type="text" class="form-control bg-dark" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1" style="color: white" v-model="userName" id="userName">
         </div><br>
         <div class="input-group bg-dark" style="width: 300px;">
             <div class="input-group-prepend bg-dark">
               <span class="input-group-text bg-dark" id="basic-addon1"><i class="fas fa-key" style="color: #428bca"></i></span>
             </div>
-            <input type="password" class="form-control bg-dark" placeholder="Password" aria-label="Password" aria-describedby="basic-addon1" style="color: white">
+            <input type="password" class="form-control bg-dark" placeholder="Password" aria-label="Password" aria-describedby="basic-addon1" style="color: white" v-model="password" id="password">
         </div><br>
-        <button type="button" class="btn btn-primary" style="width: 100px" id="btnLogin">Log In</button>
+        <button type="button" class="btn btn-primary" style="width: 100px" v-on:click="logIn2" id="btnLogin">Log In</button>
         </center>
         <!-- End of Login Form -->
         </div>
+        </main>
     </body>
-    <script>
-    
-    </script>
-    <script src="scripts/login.js"></script>
+
 </html>
+<script src="/scripts/axios.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="/scripts/vue/login_vue.js"></script>

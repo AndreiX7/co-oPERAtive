@@ -11,6 +11,7 @@ const axios = require('axios');
 let db = mongojs('yunyondb');
 // Routers Declaration
 const indexRouter = require('./server/routers/indexRouter');
+const loginRouter = require('./server/routers/loginRouter');
 
 app.use(morgan('dev'));
 
@@ -26,11 +27,11 @@ app.use((req, res, next) => {
   next();
 });
 
-console.log(__dirname);
 app.set('views', path.join(__dirname, 'server/views'));
 app.set('view engine', 'html');
 
 app.use('/', indexRouter);
+app.use('/process/login', loginRouter);
 
 app.listen(port, (err) => {
   if(err) { return console.error(err); }

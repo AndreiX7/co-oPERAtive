@@ -8,7 +8,7 @@ router.get('/', function getIndexPage(req, res) {
   res.sendFile('index.html', { root: './server/views' });
 });
 
-router.get('/login/', function getIndexPage(req, res) {
+router.get('/login', function getIndexPage(req, res) {
   let viewModel = req.viewModel;
   res.sendFile('login.html', { root: './server/views' });
 });
