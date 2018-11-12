@@ -7,6 +7,7 @@ const nem = require('nem-sdk');
 const app = express();
 const port = 3300;
 const mongojs = require('mongojs');
+const axios = require('axios');
 let db = mongojs('yunyondb');
 // Routers Declaration
 const indexRouter = require('./server/routers/indexRouter');
@@ -25,6 +26,7 @@ app.use((req, res, next) => {
   next();
 });
 
+console.log(__dirname);
 app.set('views', path.join(__dirname, 'server/views'));
 app.set('view engine', 'html');
 
