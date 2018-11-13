@@ -9,64 +9,16 @@
       },
       methods: {
           transferXEM: function() {
-            alert('a');
-            var self = this;
-            var endpoint = nem.model.objects.create("endpoint")(nem.model.nodes.defaultTestnet, nem.model.nodes.defaultPort);
-            var common = nem.model.objects.create("common")("", "ab25157929888adcfd0646d74ee09f5b3c848ddaae1d784de3abcf0c79a8be1c");
-            var mosaicDefinitionMetaDataPair = nem.model.objects.get("mosaicDefinitionMetaDataPair");
-            var transferTransaction = nem.model.objects.create("transferTransaction")("TBCI2A67UQZAKCR6NS4JWAEICEIGEIM72G3MVW5S", 1, "Hello");
-            var mosaicAttachment = nem.model.objects.create("mosaicAttachment")("nem", "xem", 1000000);
-
-            // Push attachment into transaction mosaics
-            transferTransaction.mosaics.push(mosaicAttachment);
-            
-            /**
-             * ATTACHING ANOTHER MOSAIC
-             *
-             * Need to get mosaic definition using com.requests
-             */
-            
-            // Create another mosaic attachment
-            var mosaicAttachment2 = nem.model.objects.create("mosaicAttachment")("nw.fiat", "eur", 10000); // 100 nw.fiat.eur (divisibility is 2 for this mosaic)
-            
-            // Push attachment into transaction mosaics
-            transferTransaction.mosaics.push(mosaicAttachment2);
-            
-            // Need mosaic definition of nw.fiat:eur to calculate adequate fees, so we get it from network.
-            // Otherwise you can simply take the mosaic definition from api manually (http://bob.nem.ninja/docs/#retrieving-mosaic-definitions) 
-            // and put it into mosaicDefinitionMetaDataPair model (objects.js) next to nem:xem (be careful to respect object structure)
-            nem.com.requests.namespace.mosaicDefinitions(endpoint, mosaicAttachment2.mosaicId.namespaceId).then(function(res) {
-            
-                // Look for the mosaic definition(s) we want in the request response (Could use ["eur", "usd"] to return eur and usd mosaicDefinitionMetaDataPairs)
-                var neededDefinition = nem.utils.helpers.searchMosaicDefinitionArray(res.data, ["eur"]);
-                
-                // Get full name of mosaic to use as object key
-                var fullMosaicName  = nem.utils.format.mosaicIdToName(mosaicAttachment2.mosaicId);
-            
-                // Check if the mosaic was found
-                if(undefined === neededDefinition[fullMosaicName]) return console.error("Mosaic not found !");
-            
-                // Set eur mosaic definition into mosaicDefinitionMetaDataPair
-                mosaicDefinitionMetaDataPair[fullMosaicName] = {};
-                mosaicDefinitionMetaDataPair[fullMosaicName].mosaicDefinition = neededDefinition[fullMosaicName];
-            
-                // Prepare the transfer transaction object
-                var transactionEntity = nem.model.transactions.prepare("mosaicTransferTransaction")(common, transferTransaction, mosaicDefinitionMetaDataPair, nem.model.network.data.testnet.id);
-            
-                // Serialize transfer transaction and announce
-                nem.model.transactions.send(common, transactionEntity, endpoint)
-            }, 
-            function(err) {
-                console.error(err);
+            const nem = require("nem-sdk").default;
+            const endpoint = nem.model.objects.create("endpoint")(nem.model.nodes.defaultTestnet, nem.model.nodes.defaultPort);
+            const common = nem.model.objects.create("common")('1234', 'ab25157929888adcfd0646d74ee09f5b3c848ddaae1d784de3abcf0c79a8be1c');
+            const transferTransaction = nem.model.objects.create('transferTransaction')("TAVI33BIPEIKN2OH5PHKL7E3DDN4UY4QROM2R23E", 44, "hello p0hwzx");
+            const preparedTransaction = nem.model.transactions.prepare('transferTransaction')(common, transferTransaction, nem.model.network.data.testnet.id);
+            nem.model.transactions.send(common, preparedTransaction, endpoint).then(function(res){
+                console.log(res);
+            }, function(err){
+                console.log(err);
             })
-            axios.post('/process/login', userData)
-              .then(res => { // Client-side actions
-                  
-                    
-              })
-              .catch(err => {
-                  console.log(err);
-              })
           }
       }
     }
