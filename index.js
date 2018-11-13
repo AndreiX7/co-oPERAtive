@@ -8,10 +8,20 @@ const app = express();
 const port = 3300;
 const mongojs = require('mongojs');
 const axios = require('axios');
-let db = mongojs('yunyondb');
+const redis = require('redis');
+const collections = ['users'];
+//var db = mongojs("127.0.0.1:27017/"+db, collections);
+let db = mongojs('yunyon.ddns.net/yunyondb', collections); // MongoDB 
+var rc = redis.createClient({
+  port: 6379,
+  host: 'yunyon.ddns.net'
+}); // Redis Client
+
 // Routers Declaration
 const indexRouter = require('./server/routers/indexRouter');
 const loginRouter = require('./server/routers/loginRouter');
+const testRouter = require('./server/routers/testRouter');
+const test2Router = require('./server/routers/test2Router');
 
 app.use(morgan('dev'));
 
@@ -32,6 +42,8 @@ app.set('view engine', 'html');
 
 app.use('/', indexRouter);
 app.use('/process/login', loginRouter);
+app.use('/process/test', testRouter);
+app.use('/process/test2', test2Router);
 
 app.listen(port, (err) => {
   if(err) { return console.error(err); }
@@ -53,4 +65,8 @@ db.mycollection.find(function (err, docs) {
 db.users.findOne({ "username": "admin"}, (err, test) => 
 {
   console.log(test);
+});
+
+rc.on('connect', function() {
+  console.log('Redis client connected');
 });

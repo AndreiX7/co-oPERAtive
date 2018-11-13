@@ -13,6 +13,10 @@ router.get('/login', function getIndexPage(req, res) {
   res.sendFile('login.html', { root: './server/views' });
 });
 
+router.get('/test', function (req, res) {
+  let viewModel = req.viewModel;
+  res.sendFile('test.html', { root: './server/views' });
+})
 router.post('/', function submitNotes(req, res) {
 
 });

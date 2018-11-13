@@ -1,8 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const mongojs = require('mongojs');
-let db = mongojs('yunyondb');
-
+const collections = ['users'];
+let db = mongojs('yunyon.ddns.net/yunyondb', collections);
 
 router.get('/', function getIndexPage(req, res) {
   let viewModel = req.viewModel;
