@@ -21,7 +21,7 @@ var rc = redis.createClient({
 const indexRouter = require('./server/routers/indexRouter');
 const loginRouter = require('./server/routers/loginRouter');
 const testRouter = require('./server/routers/testRouter');
-const test2Router = require('./server/routers/test2Router');
+const userDashboardRouter = require('./server/routers/userDashboardRouter');
 
 app.use(morgan('dev'));
 
@@ -43,7 +43,7 @@ app.set('view engine', 'html');
 app.use('/', indexRouter);
 app.use('/process/login', loginRouter);
 app.use('/process/test', testRouter);
-app.use('/process/test2', test2Router);
+app.use('/process/userdashboard', userDashboardRouter);
 
 app.listen(port, (err) => {
   if(err) { return console.error(err); }
@@ -66,6 +66,10 @@ db.users.findOne({ "username": "admin"}, (err, test) =>
 {
   console.log(test);
 });
+
+db.loan.find((err, docs) => {
+	console.log(docs);
+})
 
 rc.on('connect', function() {
   console.log('Redis client connected');
