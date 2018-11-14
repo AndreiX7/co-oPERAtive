@@ -13,12 +13,32 @@
 
     <title>YunYonPH - Banking Solutions</title>
     <body style="font-family: 'Titillium Web', sans-serif;">
-        <main class="container" id="loginVue" role="main">
+        <main id="loginVue">
         <!-- Header -->
-        <div style="padding-top: 1%; padding-left: 2%">
-            <span><font color="white" style="font-size: 40px">YunYon</font><font color="red">PH</font></span>
-            <span><font color="grey"> : Banking Solutions</font></span>
+        <nav class="navbar navbar-expand-lg navbar-dark " style="background-color: #242424">
+            <span><font color="white" style="font-size: 40px">YunYon</font><font color="red">PH</font><font color="grey"> : Banking Solutions</font></span>
+        <span style="padding-right: 50px"></span>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+    
+        <div class="collapse navbar-collapse" id="navbarColor01">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+              <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Services</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">About</a>
+            </li>
+          </ul>
+          <form class="form-inline">
+
+          </form>
         </div>
+      </nav>
         <!-- Body -->
         <div><br><br>
         <center>
@@ -28,13 +48,13 @@
             <div class="input-group-prepend bg-dark">
               <span class="input-group-text bg-dark" id="basic-addon1"><i class="fas fa-address-card" style="color: #428bca"></i></span>
             </div>
-            <input type="text" class="form-control bg-dark" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1" style="color: white" v-model="username" id="username">
+            <input type="text" class="form-control bg-dark" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1" style="color: white" v-model="username" id="username" required>
         </div><br>
         <div class="input-group bg-dark" style="width: 300px;">
             <div class="input-group-prepend bg-dark">
               <span class="input-group-text bg-dark" id="basic-addon1"><i class="fas fa-key" style="color: #428bca"></i></span>
             </div>
-            <input type="password" class="form-control bg-dark" placeholder="Password" aria-label="Password" aria-describedby="basic-addon1" style="color: white" v-model="password" id="password">
+            <input type="password" class="form-control bg-dark" placeholder="Password" aria-label="Password" aria-describedby="basic-addon1" style="color: white" v-model="password" id="password" required>
         </div><br>
         <button type="button" class="btn" style="width: 200px" v-on:click="logIn" id="btnLogin" v-bind:class="{ 'btn-primary': !isLoggingIn, 'btn-outline-secondary': isLoggingIn, 'btn-outline-warning': isInvalid, 'btn-success': isAuthenticated }" :disabled="isInvalid == true || isLoggingIn == true || isAuthenticated == true"> {{ btnLogin.text }} </button>
         </center>
