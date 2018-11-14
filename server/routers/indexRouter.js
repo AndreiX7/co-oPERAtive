@@ -13,10 +13,21 @@ router.get('/login', function getIndexPage(req, res) {
   res.sendFile('login.html', { root: './server/views' });
 });
 
+router.get('/admin/dashboard', function (req, res) {
+  let viewModel = req.viewModel;
+  res.sendFile('admin_dashboard.html', { root: './server/views' });
+})
+
 router.get('/test', function (req, res) {
   let viewModel = req.viewModel;
   res.sendFile('test.html', { root: './server/views' });
 })
+
+router.get('/404', function (req, res) {
+  let viewModel = req.viewModel;
+  res.sendFile('404.html', { root: './server/views' });
+})
+
 router.post('/', function submitNotes(req, res) {
 
 });
