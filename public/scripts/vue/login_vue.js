@@ -34,7 +34,9 @@
                     if (res.data == "OK") {
                         self.isAuthenticated = true;
                         loginVue.btnLogin.text = '✓ Successful login ';
-                        
+                        setTimeout(() => {
+                                window.location.href = '/admin/dashboard';
+                        }, 500);
                     }
                     else if (res.data == "SERVER_ERROR") {
                         self.isInvalid = true;
@@ -52,9 +54,6 @@
                         if (self.isAuthenticated == false) {
                             self.isInvalid = false;
                             loginVue.btnLogin.text = 'Log In';
-                        }
-                        else {
-                            window.location.href = '/admin/dashboard';
                         }
                     }, 1500);
               })

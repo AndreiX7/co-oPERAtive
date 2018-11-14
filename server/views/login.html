@@ -56,7 +56,7 @@
             </div>
             <input type="password" class="form-control bg-dark" placeholder="Password" aria-label="Password" aria-describedby="basic-addon1" style="color: white" v-model="password" id="password" required>
         </div><br>
-        <button type="button" class="btn" style="width: 200px" v-on:click="logIn" id="btnLogin" v-bind:class="{ 'btn-primary': !isLoggingIn, 'btn-outline-secondary': isLoggingIn, 'btn-outline-warning': isInvalid, 'btn-success': isAuthenticated }" :disabled="isInvalid == true || isLoggingIn == true || isAuthenticated == true"> {{ btnLogin.text }} </button>
+        <button type="button" class="btn" style="width: 200px" v-on:click="logIn" id="btnLogin" v-bind:class="{ 'btn-primary': !isLoggingIn, 'btn-outline-secondary': isLoggingIn, 'btn-danger': isInvalid, 'btn-success': isAuthenticated }" :disabled="isInvalid == true || isLoggingIn == true || isAuthenticated == true"> {{ btnLogin.text }} </button>
         </center>
         <!-- End of Login Form -->
         </div>
