@@ -11,8 +11,9 @@
     </style>
     <title>Cooperative PH - Banking Solutions</title>
     <body style="font-family: 'Titillium Web', sans-serif;">
+      <main id="adminVue">
         <nav class="navbar navbar-expand-lg navbar-dark " style="background-color: #242424">
-            <span><font color="white" style="font-size: 40px">YunYon</font><font color="red">PH</font><font color="grey"> : Banking Solutions</font></span>
+            <span><font color="white" style="font-size: 40px">Cooperative</font><font color="red">PH</font><font color="grey"> : Banking Solutions</font></span>
         <span style="padding-right: 50px"></span>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
@@ -34,7 +35,7 @@
             </li>
           </ul>
           <form class="form-inline">
-            <span style="padding-right: 50px"><i class="fas fa-user-circle" style="color: aqua"></i><font color="white" style="font-size: 14px"> %username%</font></span><a href="/login" class="btn btn-outline-danger" style="float: right; transform: scale(0.8)">Log Out</a>
+            <span style="padding-right: 50px"><i class="fas fa-user-circle" style="color: aqua"></i><font color="white" style="font-size: 14px">  {{ txtUsername.text }}</font></span><a href="/login" class="btn btn-outline-danger" style="float: right; transform: scale(0.8)">Log Out</a>
           </form>
         </div>
       </nav>
@@ -45,5 +46,9 @@
                 </div>
             </div>
         </div>
+      </main>
     </body>
 </html>
+<script src="/scripts/axios.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="/scripts/vue/admin_vue.js"></script>
