@@ -31,18 +31,19 @@
             axios.post('/process/login', userData)
               .then(res => { // Client-side actions
                     self.isLoggingIn = false;
-                    if (res.data == "OK") {
+                    if (res.data.auth == "OK") {
                         self.isAuthenticated = true;
                         loginVue.btnLogin.text = '✓ Successful login ';
                         setTimeout(() => {
                                 window.location.href = '/admin/dashboard';
                         }, 500);
+                        localStorage.setItem("username", res.data.username);
                     }
-                    else if (res.data == "SERVER_ERROR") {
+                    else if (res.data.auth == "SERVER_ERROR") {
                         self.isInvalid = true;
                         loginVue.btnLogin.text = 'Internal server error. Try again';
                     }
-                    else if (res.data == "REDIS_ERROR") {
+                    else if (res.data.auth == "REDIS_ERROR") {
                         self.isInvalid = true;
                         loginVue.btnLogin.text = 'Redis server error. Try again';
                     }

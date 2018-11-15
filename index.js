@@ -56,6 +56,18 @@ app.get('*', function(req, res) {
   res.redirect('/404');
 });
 
+app.get('/',function(req,res){  
+  //console.log("Req data is: " + res.data.isSessionValid);
+  // create new session object.
+  if(req.session.key != null) {
+      // if email key is sent redirect.
+      res.redirect('/dashboard/admin');
+  } else {
+      // else go to home page.
+      res.render('index.html');
+  }
+});
+
 /*db.on('connect', function () {
 	console.log('Database connection: OK');
 })
