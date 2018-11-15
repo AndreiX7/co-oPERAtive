@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const mongojs = require('mongojs');
 const collections = ['loans'];
-let db = mongojs('yunyon.ddns.net/yunyondb', collections);
+const db = mongojs('yunyon.ddns.net/yunyondb', collections);
 
 router.get('/', (req, res) => {
   let viewModel = req.viewModel;
@@ -12,14 +12,14 @@ router.get('/', (req, res) => {
 router.post('/', (req, res) => {
   var loan = {
     cooperative : req.body.cooperative,
-    account : req.body.account,
+    address : req.body.address,
     amount : req.body.amount
   };
-  insertLoanDetails(loan.cooperative, loan.account, loan.amount);
+  insertLoanDetails(loan.cooperative, loan.address, loan.amount);
 });
 
-function insertLoanDetails(cooperative, account, amount) {
-  db.loans.insert({ "cooperative" : cooperative, "account" : account, "amount" : amount });
+function insertLoanDetails(cooperative, address, amount) {
+  db.loans.insert({ "cooperative" : cooperative, "address" : address, "amount" : amount });
 };
 
 module.exports = router;

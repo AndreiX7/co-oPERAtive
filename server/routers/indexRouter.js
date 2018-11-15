@@ -17,19 +17,19 @@ app.use(session({
   resave: false
 }));
 
-router.get('/', function (req, res) {
+router.get('/', (req, res) => {
   let viewModel = req.viewModel;
   //res.render('index.html', viewModel);
   //res.sendFile(__dirname + '/index.html');
   res.sendFile('index.html', { root: './server/views' });
 });
 
-router.get('/login', function (req, res) {
+router.get('/login', (req, res) => {
   let viewModel = req.viewModel;
   res.sendFile('login.html', { root: './server/views' });
 });
 
-router.get('/admin/dashboard', function (req, res) {
+router.get('/admin/dashboard', (req, res) => {
   let viewModel = req.viewModel;
   res.sendFile('admin_dashboard.html', { root: './server/views' });
   console.log(session.key);
@@ -40,6 +40,12 @@ router.get('/admin/dashboard', function (req, res) {
     res.redirect('/');
   }
 })
+
+router.get('/admin/loans', (req, res) => {
+  let viewModel = req.viewModel;
+  res.sendFile('admin_loan.html', { root: './server/views' });
+  //res.render('admin_loan.pug', viewModel);
+});
 
 router.get('/test', function (req, res) {
   let viewModel = req.viewModel;
