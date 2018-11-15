@@ -23,6 +23,7 @@ const loginRouter = require('./server/routers/loginRouter');
 const adminRouter = require('./server/routers/adminRouter');
 const testRouter = require('./server/routers/testRouter');
 const userDashboardRouter = require('./server/routers/userDashboardRouter');
+const loanApiRouter = require('./server/routers/loanApiRouter');
 
 app.use(morgan('dev'));
 
@@ -40,12 +41,14 @@ app.use((req, res, next) => {
 
 app.set('views', path.join(__dirname, 'server/views'));
 app.set('view engine', 'html');
+app.set('view engine', 'pug');
 
 app.use('/', indexRouter);
-//app.use('/admin/dashboard', adminRouter);
+app.use('/process/loan', adminRouter);
 app.use('/process/login', loginRouter);
 app.use('/process/test', testRouter);
 app.use('/process/userdashboard', userDashboardRouter);
+app.use('/api/loans', loanApiRouter);
 
 app.listen(port, (err) => {
   if(err) { return console.error(err); }
