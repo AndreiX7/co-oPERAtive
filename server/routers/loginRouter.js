@@ -1,13 +1,24 @@
 const express = require('express');
 const router = express.Router();
+const session = require('express-session');
+const redisStore = require('connect-redis')(session);
 const mongojs = require('mongojs');
 const collections = ['users'];
 const redis = require('redis');
-var rc = redis.createClient({
+var client = redis.createClient({
     port: 6379,
     host: 'yunyon.ddns.net'
 });
 
+const app = express();
+
+app.use(session({
+    secret: 'thisisatestsecretkey',
+    // create new redis store.
+    store: new redisStore({ host: 'yunyon.ddns.net', port: 6379, client: client,ttl :  260}),
+    saveUninitialized: false,
+    resave: false
+  }));
 
 var crypto = require('crypto'),
     algorithm = 'aes-256-gcm',
@@ -27,15 +38,11 @@ router.get('/', function getIndexPage(req, res) {
         //res.send(req.body.userName);
         if(test == null) res.send("NOT FOUND");
         else res.send("OK");
+        
     });
   
 });
 
-router.get('/login', function getIndexPage(req, res) {
-  let viewModel = req.viewModel;
-  res.sendFile('login.html', { root: './server/views' });
-
-});
 
 router.post('/', function (req, res) {
     db.users.findOne({ "username": req.body.username, "password": req.body.password }, (err, test) => 
@@ -47,10 +54,17 @@ router.post('/', function (req, res) {
         //console.log("HASHED: " + decrypt("71e72dfb7a"));
         try {
             if(test == null) res.send("NOT FOUND");
-            else res.send("OK");
-        } catch (err) { res.send("SERVER_ERROR"); }
+            else {
+                session.key=req.body.username;
+                session.user=req.body.username;
+                //res.end('done');
+                //res.send("OK");
+                res.json({auth: 'OK', username: req.body.username });
+            }
+        } catch (err) { res.send("SERVER_ERROR"); console.log(err); }
         try {
-            rc.set(req.body.username, req.body.username, redis.print);
+            client.set(req.body.username, req.body.username, redis.print);
+            //console.log(app.session.user);
             //console.log(encrypt(req.body.username));
         }
         catch (err) { res.send("REDIS_ERROR"); }
