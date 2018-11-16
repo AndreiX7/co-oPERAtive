@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const nem = require('nem-sdk').default;
 const session = require('express-session');
 const redisStore = require('connect-redis')(session);
 const mongojs = require('mongojs');
@@ -9,6 +10,7 @@ var client = redis.createClient({
     port: 6379,
     host: 'yunyon.ddns.net'
 });
+var nemBalance = null;
 
 const app = express();
 
@@ -57,9 +59,15 @@ router.post('/', function (req, res) {
             else {
                 session.key=req.body.username;
                 session.user=req.body.username;
+                session.balance=null;
+                var nemBalance;
                 //res.end('done');
                 //res.send("OK");
-                res.json({auth: 'OK', username: req.body.username });
+                console.log(getNemBalance());
+                getNemBalance(callback => {
+                    session.balance = callback;
+                    res.json({auth: 'OK', username: req.body.username, balance: session.balance });
+                });
             }
         } catch (err) { res.send("SERVER_ERROR"); console.log(err); }
         try {
@@ -90,4 +98,17 @@ function encrypt(text) {
     return dec;
   }
 
+ function getNemBalance(callback) {
+    const endpoint = nem.model.objects.create("endpoint")(nem.model.nodes.defaultTestnet, nem.model.nodes.defaultPort);
+    var balance = null;
+    
+    nem.com.requests.account.data(endpoint, "TBA34RRWCPIP53RHKQ3P363BMP4KZ4VA3UMVRXLT").then(function(res) {
+        //console.log(res.account.balance);
+        console.log(res);
+        balance = (res.account.balance/1000000);
+        callback(balance);
+    }, function(err) { //console.log("err"); 
+        callback(null); 
+    });
+ }
 module.exports = router;
