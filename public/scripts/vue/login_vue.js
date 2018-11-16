@@ -12,7 +12,7 @@
 
         btnLogin: {
              text: 'Log In'
-        }
+        } 
       },
       methods: {
           logIn: function() {
@@ -38,6 +38,7 @@
                                 window.location.href = '/admin/dashboard';
                         }, 500);
                         localStorage.setItem("username", res.data.username);
+                        localStorage.setItem("nemBalance", res.data.balance);
                     }
                     else if (res.data.auth == "SERVER_ERROR") {
                         self.isInvalid = true;
