@@ -18,6 +18,7 @@
           axios.post('/process/userdashboard', loanData)
             .then(res => {
               self.loans = res.data;
+              console.log(res.data);
             })
             .catch(err => {
               console.log(err);

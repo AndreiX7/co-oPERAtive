@@ -6,7 +6,7 @@ const db = mongojs('yunyon.ddns.net/yunyondb', collections);
 
 router.get('/', (req, res) => {
   let viewModel = req.viewModel;
-  res.sendFile('userdashboard.html', { root: './server/views' });
+  res.sendFile('userLoan.html', { root: './server/views' });
 });
 
 router.post('/', (req, res) => {
@@ -15,6 +15,7 @@ router.post('/', (req, res) => {
     address : req.body.address,
     amount : req.body.amount
   };
+  console.log(req.body.cooperative);
   insertLoanDetails(loan.cooperative, loan.address, loan.amount);
 });
 
