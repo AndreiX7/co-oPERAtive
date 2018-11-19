@@ -60,13 +60,14 @@ router.post('/', function (req, res) {
                 session.key=req.body.username;
                 session.user=req.body.username;
                 session.balance=null;
+                var usertype = test.usertype;
                 var nemBalance;
                 //res.end('done');
                 //res.send("OK");
                 console.log(getNemBalance());
                 getNemBalance(callback => {
                     session.balance = callback;
-                    res.json({auth: 'OK', username: req.body.username, balance: session.balance });
+                    res.json({auth: 'OK', username: req.body.username, balance: session.balance, usertype: test.usertype });
                 });
             }
         } catch (err) { res.send("SERVER_ERROR"); console.log(err); }

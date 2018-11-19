@@ -41,6 +41,30 @@ router.get('/admin/dashboard', (req, res) => {
   }
 })
 
+router.get('/cooperative/dashboard', (req, res) => {
+  let viewModel = req.viewModel;
+  res.sendFile('cooperative_dashboard.html', { root: './server/views' });
+  console.log(session.key);
+  if (session.key == null) {
+    console.log(req.body.username);
+    //res.send('<script>alert("Hello")</script>');
+    //res.json({ isSessionValid: false} );
+    res.redirect('/');
+  }
+})
+
+router.get('/member/dashboard', (req, res) => {
+  let viewModel = req.viewModel;
+  res.sendFile('member_dashboard.html', { root: './server/views' });
+  console.log(session.key);
+  if (session.key == null) {
+    console.log(req.body.username);
+    //res.send('<script>alert("Hello")</script>');
+    //res.json({ isSessionValid: false} );
+    res.redirect('/');
+  }
+})
+
 router.get('/admin/loans', (req, res) => {
   let viewModel = req.viewModel;
   res.sendFile('admin_loan.html', { root: './server/views' });
