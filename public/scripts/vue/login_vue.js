@@ -35,7 +35,9 @@
                         self.isAuthenticated = true;
                         loginVue.btnLogin.text = '✓ Successful login ';
                         setTimeout(() => {
-                                window.location.href = '/admin/dashboard';
+                                if(res.data.usertype == "1") window.location.href = '/admin/dashboard';
+                                if(res.data.usertype == "2") window.location.href = '/cooperative/dashboard';
+                                if(res.data.usertype == "3") window.location.href = '/process/userdashboard';
                         }, 500);
                         localStorage.setItem("username", res.data.username);
                         localStorage.setItem("nemBalance", res.data.balance);
